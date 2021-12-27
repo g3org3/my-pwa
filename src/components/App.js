@@ -7,7 +7,15 @@ import Menu from 'components/Menu';
 
 const App = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        boxSizing: 'border-box',
+        paddingBottom: '24px',
+      }}
+    >
       <Navbar title="PWA" />
       <Menu />
       <Box

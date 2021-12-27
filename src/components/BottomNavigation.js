@@ -14,30 +14,27 @@ export default function LabelBottomNavigation() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <BottomNavigation value={value} onChange={handleChange}>
-        <BottomNavigationAction
-          label="Recents"
-          value="recents"
-          icon={<RestoreIcon />}
-        />
-        <BottomNavigationAction
-          label="Favorites"
-          value="favorites"
-          icon={<FavoriteIcon />}
-        />
-        <BottomNavigationAction
-          label="Nearby"
-          value="nearby"
-          icon={<LocationOnIcon />}
-        />
-        <BottomNavigationAction
-          label="Folder"
-          value="folder"
-          icon={<FolderIcon />}
-        />
-      </BottomNavigation>
-      <div style={{ background: 'red', height: '20px' }}></div>
-    </div>
+    <BottomNavigation value={value} onChange={handleChange}>
+      <BottomNavigationAction
+        label="Recents"
+        value="recents"
+        icon={<RestoreIcon />}
+      />
+      <BottomNavigationAction
+        label="Favorites"
+        value="favorites"
+        icon={<FavoriteIcon />}
+      />
+      <BottomNavigationAction
+        label="Nearby"
+        value="nearby"
+        icon={<LocationOnIcon />}
+      />
+      <BottomNavigationAction
+        label="Folder"
+        value="folder"
+        icon={<FolderIcon />}
+      />
+    </BottomNavigation>
   );
 }
