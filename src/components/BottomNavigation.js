@@ -37,7 +37,7 @@ export default function LabelBottomNavigation() {
           icon={<FolderIcon />}
         />
       </BottomNavigation>
-      <div style={{ background: 'red', height: '10px' }}></div>
+      <div style={{ background: 'red', height: '20px' }}></div>
     </div>
   );
 }
