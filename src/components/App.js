@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import Navbar from 'components/Navbar';
@@ -6,6 +6,8 @@ import BottomNavigation from 'components/BottomNavigation';
 import Menu from 'components/Menu';
 
 const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div
       style={{
@@ -16,8 +18,8 @@ const App = () => {
         paddingBottom: '24px',
       }}
     >
-      <Navbar title="PWA" />
-      <Menu />
+      <Navbar title="PWA" onMenuClick={() => setIsMenuOpen(!isMenuOpen)} />
+      <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
       <Box
         sx={{
           flex: 1,

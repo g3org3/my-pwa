@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-export default function Navbar({ title }) {
+const Navbar = ({ title, onMenuClick }) => {
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
@@ -14,6 +14,7 @@ export default function Navbar({ title }) {
           edge="start"
           color="inherit"
           aria-label="menu"
+          onClick={onMenuClick}
           sx={{ mr: 2 }}
         >
           <MenuIcon />
@@ -24,4 +25,6 @@ export default function Navbar({ title }) {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+export default Navbar;
