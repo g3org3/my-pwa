@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-export default function SwipeableTemporaryDrawer() {
+const Menu = () => {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -29,6 +29,10 @@ export default function SwipeableTemporaryDrawer() {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const iOS =
+    typeof navigator !== 'undefined' &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const list = (anchor) => (
     <Box
@@ -71,6 +75,8 @@ export default function SwipeableTemporaryDrawer() {
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
+            disableBackdropTransition={!iOS}
+            disableDiscovery={iOS}
           >
             {list(anchor)}
           </SwipeableDrawer>
@@ -78,4 +84,6 @@ export default function SwipeableTemporaryDrawer() {
       ))}
     </div>
   );
-}
+};
+
+export default Menu;

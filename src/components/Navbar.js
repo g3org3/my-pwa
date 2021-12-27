@@ -7,21 +7,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 export default function Navbar({ title }) {
   return (
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {title}
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <AppBar position="static">
+      <Toolbar variant="dense">
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {title}
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
