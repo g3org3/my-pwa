@@ -1,17 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Root from 'components/Root'
 import "./index.css";
-import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { ThemeProvider } from "@mui/material";
-import {theme} from './theme'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <Root />
   </React.StrictMode>,
   document.getElementById("root")
 );

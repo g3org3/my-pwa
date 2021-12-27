@@ -19,14 +19,6 @@ export const themeOptions = {
   shape: {
     borderRadius: 24,
   },
-  overrides: {
-    MuiAppBar: {
-      colorInherit: {
-        backgroundColor: '#689f38',
-        color: '#fff',
-      },
-    },
-  },
   props: {
     MuiButtonBase: {
       disableRipple: true,
