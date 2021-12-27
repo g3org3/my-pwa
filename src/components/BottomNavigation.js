@@ -14,7 +14,7 @@ export default function LabelBottomNavigation() {
   };
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column'}}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <BottomNavigation value={value} onChange={handleChange}>
         <BottomNavigationAction
           label="Recents"
@@ -37,7 +37,7 @@ export default function LabelBottomNavigation() {
           icon={<FolderIcon />}
         />
       </BottomNavigation>
-      <div style={{background: 'red', height: '10px' }}></div>
+      <div style={{ background: 'red', height: '10px' }}></div>
     </div>
   );
 }

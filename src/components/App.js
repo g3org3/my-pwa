@@ -24,6 +24,6 @@ const App = () => {
       <BottomNavigation />
     </div>
   );
-}
+};
 
 export default App;
