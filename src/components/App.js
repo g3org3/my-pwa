@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import { useLocation, useNavigate } from '@reach/router';
-import Box from '@mui/material/Box';
 
 import Navbar from 'components/Navbar';
 import BottomNavigation from 'components/BottomNavigation';
