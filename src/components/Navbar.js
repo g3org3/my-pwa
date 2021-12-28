@@ -7,18 +7,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const Navbar = ({ title, onMenuClick }) => {
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar variant="dense">
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          onClick={onMenuClick}
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {typeof onMenuClick === 'function' ? (
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={onMenuClick}
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+        ) : null}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {title}
         </Typography>
