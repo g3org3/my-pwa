@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Toolbar from '@mui/material/Toolbar';
 import { useLocation, useNavigate } from '@reach/router';
 
 import Navbar from 'components/Navbar';
@@ -15,7 +14,10 @@ const App = ({ children }) => {
   const onBottomNavigationClick = (newValue) => {
     navigate(`/${newValue}`);
   };
-  const selectedTab = location.pathname.substr(1);
+  const selectedTab = location.pathname;
+
+  const isInstalled = window.navigator.standalone === true;
+  const navbarProps = isInstalled ? {} : { onMenuClick };
 
   return (
     <>
@@ -27,24 +29,27 @@ const App = ({ children }) => {
           height: '100vh',
           width: '100vw',
           boxSizing: 'border-box',
-          paddingBottom: '24px',
+          paddingBottom: isInstalled ? '24px' : 0,
         }}
       >
-        <Navbar title="PWA" onMenuClick={onMenuClick} />
-        <Toolbar />
+        <Navbar title="PWA" {...navbarProps} />
         <div
           style={{
-            display: 'block',
+            display: 'flex',
             flexGrow: 1,
             background: '#f8f8f8',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           {children}
         </div>
-        <BottomNavigation
-          value={selectedTab}
-          onClick={onBottomNavigationClick}
-        />
+        {isInstalled ? (
+          <BottomNavigation
+            value={selectedTab}
+            onClick={onBottomNavigationClick}
+          />
+        ) : null}
       </div>
     </>
   );

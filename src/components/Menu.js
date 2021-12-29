@@ -2,12 +2,13 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
+import Toolbar from '@mui/material/Toolbar';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { Link } from '@reach/router';
+
+import { menuItems } from 'components/menuItems';
 
 const Menu = ({ isOpen, setIsOpen }) => {
   const toggleDrawer = (open) => (event) => {
@@ -36,6 +37,7 @@ const Menu = ({ isOpen, setIsOpen }) => {
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
       >
+        <Toolbar />
         <Box
           sx={{ width: 250 }}
           role="presentation"
@@ -43,24 +45,13 @@ const Menu = ({ isOpen, setIsOpen }) => {
           onKeyDown={toggleDrawer(false)}
         >
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
+            {menuItems.map(({ title, Icon, to }) => (
+              <ListItemButton key={title} component={Link} to={to}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <Icon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
+                <ListItemText primary={title} />
+              </ListItemButton>
             ))}
           </List>
         </Box>

@@ -7,7 +7,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const Navbar = ({ title, onMenuClick }) => {
   return (
-    <AppBar position="fixed">
+    <AppBar
+      position="static"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar variant="dense">
         {typeof onMenuClick === 'function' ? (
           <IconButton
