@@ -2,17 +2,17 @@ import { ThemeProvider } from '@mui/material';
 import { Router } from '@reach/router';
 
 import App from 'components/App';
-import Map from 'components/Map';
+import Activities from 'components/Activities';
 import { theme } from '../theme';
 
-const MainContent = () => 'no content';
+const MainContent = () => 'Hello!';
 
 const Root = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <App path="/">
-          <Map path="recents" />
+          <Activities path="activities" />
           <MainContent default />
         </App>
       </Router>

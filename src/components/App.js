@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from '@reach/router';
+import Box from '@mui/material/Box';
 
 import Navbar from 'components/Navbar';
 import BottomNavigation from 'components/BottomNavigation';
@@ -16,7 +17,7 @@ const App = ({ children }) => {
   };
   const selectedTab = location.pathname;
 
-  const isInstalled = window.navigator.standalone === true;
+  const isInstalled = true; //window.navigator.standalone === true;
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
   return (
@@ -32,18 +33,8 @@ const App = ({ children }) => {
           paddingBottom: isInstalled ? '24px' : 0,
         }}
       >
-        <Navbar title="PWA" {...navbarProps} />
-        <div
-          style={{
-            display: 'flex',
-            flexGrow: 1,
-            background: '#f8f8f8',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {children}
-        </div>
+        <Navbar title="Activities" {...navbarProps} />
+        <Box sx={{ flex: 1 }}>{children}</Box>
         {isInstalled ? (
           <BottomNavigation
             value={selectedTab}
