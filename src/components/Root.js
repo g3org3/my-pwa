@@ -3,7 +3,8 @@ import { Router } from '@reach/router';
 
 import App from 'components/App';
 import Activities from 'components/Activities';
-import { theme } from '../theme';
+import Add from 'components/Add';
+import { theme } from 'config/theme';
 
 const MainContent = () => 'Hello!';
 
@@ -12,6 +13,7 @@ const Root = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <App path="/">
+          <Add path="/add" />
           <Activities path="activities" />
           <MainContent default />
         </App>

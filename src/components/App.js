@@ -17,7 +17,7 @@ const App = ({ children }) => {
   };
   const selectedTab = location.pathname;
 
-  const isInstalled = true; //window.navigator.standalone === true;
+  const isInstalled = window.navigator.standalone === true;
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
   return (

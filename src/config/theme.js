@@ -4,7 +4,7 @@ export const themeOptions = {
   palette: {
     type: 'light',
     primary: {
-      main: '#cbc5ea',
+      main: '#0277bd',
     },
     secondary: {
       main: '#0277bd',
@@ -17,11 +17,11 @@ export const themeOptions = {
   },
   spacing: 18,
   shape: {
-    borderRadius: 24,
+    borderRadius: 8,
   },
   props: {
     MuiButtonBase: {
-      disableRipple: true,
+      disableRipple: false,
     },
     MuiTooltip: {
       arrow: true,
