@@ -9,6 +9,7 @@ import { onValue, ref } from 'firebase/database';
 
 import { formatDate } from 'services/date';
 import { db } from 'config/firebase';
+import { DateTime } from 'luxon';
 
 export default function AlignItemsList() {
   const [activities, setActivities] = useState([]);
@@ -22,34 +23,38 @@ export default function AlignItemsList() {
 
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {activities.map(({ title, fecha, status, emoji }) => {
-        return (
-          <React.Fragment key={title}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <span style={{ fontSize: '35px' }}>{emoji || '🗓'}</span>
-              </ListItemAvatar>
-              <ListItemText
-                primary={title}
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: 'inline' }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      {formatDate(fecha)}
-                    </Typography>
-                    {` — ${status}`}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </React.Fragment>
-        );
-      })}
+      {activities
+        .sort((a, b) => {
+          return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);
+        })
+        .map(({ title, fecha, status, emoji }) => {
+          return (
+            <React.Fragment key={title}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <span style={{ fontSize: '35px' }}>{emoji || '🗓'}</span>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={title}
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: 'inline' }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {formatDate(fecha)}
+                      </Typography>
+                      {` — ${status}`}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </React.Fragment>
+          );
+        })}
     </List>
   );
 }
