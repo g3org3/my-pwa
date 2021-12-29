@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, remove } from 'firebase/database';
 
 import { formatDate } from 'services/date';
 import { db } from 'config/firebase';
@@ -14,6 +14,7 @@ import { DateTime } from 'luxon';
 export default function AlignItemsList() {
   const [activities, setActivities] = useState([]);
   const activitiesDBRef = ref(db, '/activities');
+
   useEffect(() => {
     onValue(activitiesDBRef, (snapshot) => {
       const data = snapshot.val();
@@ -21,13 +22,19 @@ export default function AlignItemsList() {
     });
   });
 
+  const onDelete = (id) => {
+    // eslint-disable-next-line
+    const a = confirm('are you sure?');
+    if (a) remove(ref(db, 'activities/' + id));
+  };
+
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {activities
         .sort((a, b) => {
           return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);
         })
-        .map(({ title, fecha, status, emoji }) => {
+        .map(({ id, title, fecha, status, emoji }) => {
           return (
             <React.Fragment key={title}>
               <ListItem alignItems="flex-start">
@@ -47,6 +54,12 @@ export default function AlignItemsList() {
                         {formatDate(fecha)}
                       </Typography>
                       {` — ${status}`}
+                      <span
+                        onClick={() => onDelete(id)}
+                        style={{ marginLeft: '10px' }}
+                      >
+                        del
+                      </span>
                     </React.Fragment>
                   }
                 />
