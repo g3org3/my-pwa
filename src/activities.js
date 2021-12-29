@@ -6,15 +6,27 @@ export const activities = [
     emoji: '🥞',
   },
   {
-    title: 'Puerto',
+    title: 'Vamos al puerto',
     fecha: '2021-12-29T10:00',
     status: 'confirmado',
     emoji: '🏝',
   },
   {
-    title: 'Año Nuevo',
+    title: 'Estar en el puerto',
+    fecha: '2021-12-30T10:00',
+    status: 'confirmado',
+    emoji: '🏝',
+  },
+  {
+    title: 'Salir del puerto',
+    fecha: '2021-12-31T11:00',
+    status: 'confirmado',
+    emoji: '🏝',
+  },
+  {
+    title: 'Año Nuevo - Tio David',
     fecha: '2021-12-31T22:00',
-    status: 'tentativo',
+    status: 'confirmado',
     emoji: '🎊',
   },
   {
@@ -52,11 +64,5 @@ export const activities = [
     fecha: '2022-01-08T13:00',
     status: 'tentativo',
     emoji: '🍽',
-  },
-  {
-    title: 'Viaje Francia',
-    fecha: '2022-01-09T04:00',
-    status: 'confirmado',
-    emoji: '🛫',
   },
 ];
