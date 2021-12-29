@@ -36,7 +36,7 @@ export const activities = [
     emoji: '😴',
   },
   {
-    title: 'Desayuo o Brunch Antigua',
+    title: 'Desayuo o Brunch Antigua con Alejandra y familia',
     fecha: '2022-01-02T10:00',
     status: 'tentativo',
     emoji: '☕️',
