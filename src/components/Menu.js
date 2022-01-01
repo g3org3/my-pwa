@@ -8,9 +8,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from '@reach/router';
 
-import { menuItems } from 'config/menuItems';
+import { authenticatedMenuItems, menuItems } from 'config/menuItems';
+import { useAuth } from 'config/AuthProvider';
 
 const Menu = ({ isOpen, setIsOpen }) => {
+  const { currentUser } = useAuth();
+  const items = currentUser ? authenticatedMenuItems : menuItems;
+
   const toggleDrawer = (open) => (event) => {
     if (
       event &&
@@ -45,7 +49,7 @@ const Menu = ({ isOpen, setIsOpen }) => {
           onKeyDown={toggleDrawer(false)}
         >
           <List>
-            {menuItems.map(({ title, Icon, to }) => (
+            {items.map(({ title, Icon, to }) => (
               <ListItemButton key={title} component={Link} to={to}>
                 <ListItemIcon>
                   <Icon />

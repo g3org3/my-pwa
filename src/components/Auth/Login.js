@@ -6,9 +6,9 @@ import { useAuth } from 'config/AuthProvider';
 import { useNavigate } from '@reach/router';
 import { toast } from 'react-hot-toast';
 
-const Signup = () => {
+const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { signup } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const refs = { email: useRef(), password: useRef() };
 
@@ -20,13 +20,13 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      await signup(refs.email.current.value, refs.email.current.value);
+      await login(refs.email.current.value, refs.email.current.value);
       refs.email.current.value = '';
       refs.password.current.value = '';
       toast.success('Success');
       navigate('/');
     } catch (err) {
-      toast.error('server error');
+      toast.error(err.message);
     }
     setIsLoading(false);
   };
@@ -61,4 +61,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

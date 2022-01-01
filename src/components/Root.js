@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@mui/material';
 import { Router } from '@reach/router';
 
+import { AuthProvider } from 'config/AuthProvider';
 import App from 'components/App';
 import Activities from 'components/Activities';
 import Add from 'components/Add';
@@ -11,17 +12,19 @@ import { theme } from 'config/theme';
 
 const Root = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <App path="/">
-          <Add path="add" />
-          <Activities path="activities" />
-          <Signup path="signup" />
-          <Login path="login" />
-          <Home default />
-        </App>
-      </Router>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <App path="/">
+            <Add path="add" />
+            <Activities path="activities" />
+            <Signup path="signup" />
+            <Login path="login" />
+            <Home default />
+          </App>
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
   );
 };
 

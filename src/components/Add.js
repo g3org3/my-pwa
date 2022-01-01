@@ -5,8 +5,10 @@ import { ref, push, child } from 'firebase/database';
 import { useNavigate } from '@reach/router';
 
 import { db } from 'config/firebase';
+import { useAuth } from 'config/AuthProvider';
 
 const Add = () => {
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
   const refs = {
     title: useRef(),
@@ -14,6 +16,8 @@ const Add = () => {
     status: useRef(),
     emoji: useRef(),
   };
+
+  if (!currentUser) navigate('/login');
 
   const onSubmit = () => {
     const event = {};

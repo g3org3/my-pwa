@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from '@reach/router';
 import Box from '@mui/material/Box';
 import { Toaster } from 'react-hot-toast';
 
-import { AuthProvider } from 'config/AuthProvider';
 import Navbar from 'components/Navbar';
 import BottomNavigation from 'components/BottomNavigation';
 import Menu from 'components/Menu';
@@ -23,7 +22,7 @@ const App = ({ children }) => {
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
   return (
-    <AuthProvider>
+    <>
       <Toaster position="top-center" reverseOrder={true} />
       <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
       <div
@@ -47,7 +46,7 @@ const App = ({ children }) => {
           />
         ) : null}
       </div>
-    </AuthProvider>
+    </>
   );
 };
 

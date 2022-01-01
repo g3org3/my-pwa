@@ -26,7 +26,7 @@ const Signup = () => {
       toast.success('Success');
       navigate('/');
     } catch (err) {
-      toast.error('server error');
+      toast.error(err.message);
     }
     setIsLoading(false);
   };

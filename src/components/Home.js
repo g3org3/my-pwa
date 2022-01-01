@@ -1,14 +1,26 @@
 import { LoadingButton } from '@mui/lab';
+import { useNavigate } from '@reach/router';
+
 import { useAuth } from 'config/AuthProvider';
 
 const Home = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  if (!currentUser) navigate('/login');
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
 
   return (
     <div style={{ padding: '0 24px' }}>
       <h1>Home</h1>
       <pre>{JSON.stringify(currentUser, null, 2)}</pre>
-      <LoadingButton variant="outlined">Logout</LoadingButton>
+      <LoadingButton onClick={handleLogout} variant="outlined">
+        Logout
+      </LoadingButton>
     </div>
   );
 };

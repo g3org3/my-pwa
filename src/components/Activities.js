@@ -6,12 +6,16 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import { onValue, ref, remove } from 'firebase/database';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import IconButton from '@mui/material/IconButton';
 
-import { formatDate } from 'services/date';
-import { db } from 'config/firebase';
 import { DateTime } from 'luxon';
+import { db } from 'config/firebase';
+import { formatDate } from 'services/date';
+import { useAuth } from 'config/AuthProvider';
 
 export default function AlignItemsList() {
+  const { currentUser } = useAuth();
   const [activities, setActivities] = useState([]);
   const activitiesDBRef = ref(db, '/activities');
 
@@ -56,15 +60,14 @@ export default function AlignItemsList() {
                         {formatDate(fecha)}
                       </Typography>
                       {` — ${status}`}
-                      <span
-                        onClick={() => onDelete(id)}
-                        style={{ marginLeft: '10px' }}
-                      >
-                        del
-                      </span>
                     </React.Fragment>
                   }
                 />
+                {!currentUser ? null : (
+                  <IconButton onClick={() => onDelete(id)}>
+                    <CancelPresentationIcon color="error" />
+                  </IconButton>
+                )}
               </ListItem>
               <Divider variant="inset" component="li" />
             </React.Fragment>

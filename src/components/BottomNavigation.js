@@ -1,17 +1,21 @@
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Link } from '@reach/router';
+import { useAuth } from 'config/AuthProvider';
 
-import { menuItems } from 'config/menuItems';
+import { authenticatedMenuItems, menuItems } from 'config/menuItems';
 
 const MyBottomNavigation = ({ value }) => {
+  const { currentUser } = useAuth();
+  const items = currentUser ? authenticatedMenuItems : menuItems;
+
   return (
     <BottomNavigation
       showLabels
       value={value}
       sx={{ position: 'fixed', bottom: '24px', width: '100vw' }}
     >
-      {menuItems.map(({ title, Icon, to }) => (
+      {items.map(({ title, Icon, to }) => (
         <BottomNavigationAction
           component={Link}
           to={to}
