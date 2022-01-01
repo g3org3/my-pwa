@@ -9,7 +9,7 @@ const MyBottomNavigation = ({ value }) => {
     <BottomNavigation
       showLabels
       value={value}
-      sx={{ position: 'fixed', bottom: 0, width: '100vw' }}
+      sx={{ position: 'fixed', bottom: '24px', width: '100vw' }}
     >
       {menuItems.map(({ title, Icon, to }) => (
         <BottomNavigationAction
