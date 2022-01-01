@@ -18,9 +18,11 @@ export default function AlignItemsList() {
   useEffect(() => {
     onValue(activitiesDBRef, (snapshot) => {
       const data = snapshot.val();
-      setActivities(Object.keys(data).map((k) => ({ id: k, ...data[k] })));
+      const activities = Object.keys(data).map((k) => ({ id: k, ...data[k] }));
+      setActivities(activities);
     });
-  });
+    // eslint-disable-next-line
+  }, []);
 
   const onDelete = (id) => {
     // eslint-disable-next-line
@@ -29,7 +31,7 @@ export default function AlignItemsList() {
   };
 
   return (
-    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+    <List sx={{ width: '95%', bgcolor: 'background.paper' }}>
       {activities
         .sort((a, b) => {
           return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);

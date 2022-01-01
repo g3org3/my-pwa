@@ -33,18 +33,19 @@ const Add = () => {
   return (
     <div
       style={{
-        padding: '18px',
+        padding: '0 24px',
         display: 'flex',
         flexDirection: 'column',
         gap: '8px',
       }}
     >
+      <h1>Add new activity</h1>
       <TextField placeholder="title" inputRef={refs.title} />
       <TextField placeholder="fecha" inputRef={refs.fecha} />
       <TextField placeholder="status" inputRef={refs.status} />
       <TextField placeholder="emoji" inputRef={refs.emoji} />
       <Button onClick={onSubmit} variant="outlined">
-        Create Event
+        Create
       </Button>
     </div>
   );

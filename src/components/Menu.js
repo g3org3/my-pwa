@@ -8,7 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from '@reach/router';
 
-import { menuItems } from 'components/menuItems';
+import { menuItems } from 'config/menuItems';
 
 const Menu = ({ isOpen, setIsOpen }) => {
   const toggleDrawer = (open) => (event) => {

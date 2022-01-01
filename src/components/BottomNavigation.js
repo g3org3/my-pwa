@@ -2,7 +2,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Link } from '@reach/router';
 
-import { menuItems } from 'components/menuItems';
+import { menuItems } from 'config/menuItems';
 
 const MyBottomNavigation = ({ value }) => {
   return (
