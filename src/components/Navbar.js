@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 const Navbar = ({ title, onMenuClick }) => {
   return (
     <AppBar
-      position="static"
+      position="fixed"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Toolbar variant="dense">

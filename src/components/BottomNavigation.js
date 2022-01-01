@@ -6,7 +6,11 @@ import { menuItems } from 'components/menuItems';
 
 const MyBottomNavigation = ({ value }) => {
   return (
-    <BottomNavigation showLabels value={value}>
+    <BottomNavigation
+      showLabels
+      value={value}
+      sx={{ position: 'fixed', bottom: 0, width: '100vw' }}
+    >
       {menuItems.map(({ title, Icon, to }) => (
         <BottomNavigationAction
           component={Link}

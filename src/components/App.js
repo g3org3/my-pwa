@@ -17,7 +17,7 @@ const App = ({ children }) => {
   };
   const selectedTab = location.pathname;
 
-  const isInstalled = window.navigator.standalone === true;
+  const isInstalled = true; // window.navigator.standalone === true;
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
   return (
@@ -34,7 +34,9 @@ const App = ({ children }) => {
         }}
       >
         <Navbar title="Activities" {...navbarProps} />
-        <Box sx={{ flex: 1 }}>{children}</Box>
+        <Box sx={{ flex: 1, margin: '48px 0 56px 0', overflow: 'auto' }}>
+          {children}
+        </Box>
         {isInstalled ? (
           <BottomNavigation
             value={selectedTab}

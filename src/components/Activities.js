@@ -29,14 +29,14 @@ export default function AlignItemsList() {
   };
 
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       {activities
         .sort((a, b) => {
           return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);
         })
         .map(({ id, title, fecha, status, emoji }) => {
           return (
-            <React.Fragment key={title}>
+            <React.Fragment key={id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar>
                   <span style={{ fontSize: '35px' }}>{emoji || '🗓'}</span>
