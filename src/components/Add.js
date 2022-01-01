@@ -1,10 +1,9 @@
 import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { ref, push, child } from 'firebase/database';
 import { useNavigate } from '@reach/router';
 
-import { db } from 'config/firebase';
+import { dbPush } from 'config/firebase';
 import { useAuth } from 'config/AuthProvider';
 
 const Add = () => {
@@ -26,7 +25,7 @@ const Add = () => {
       const value = refs[key].current.value;
       event[key] = value;
     });
-    push(child(ref(db), 'activities'), event);
+    dbPush('activities', event);
     Object.keys(refs).forEach((key) => {
       if (!refs[key].current) return;
       refs[key].current.value = '';
