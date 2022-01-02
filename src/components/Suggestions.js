@@ -4,13 +4,17 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 
 import { formatDate } from 'services/date';
-import { getActivities } from 'config/airtable';
+import { getActivities, removeActivity } from 'config/airtable';
+import { useAuth } from 'config/AuthProvider';
 
 export default function AlignItemsList() {
+  const { currentUser } = useAuth();
   const [activities, setActivities] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -20,14 +24,21 @@ export default function AlignItemsList() {
       setInitialLoading(false);
     });
     const id = setInterval(() => {
-      getActivities().then((data) => {
-        setActivities(data);
-        setInitialLoading(false);
-      });
+      getActivities().then((data) => void setActivities(data));
     }, 5000);
 
     return () => clearInterval(id);
   }, []);
+
+  const onDelete = async (id) => {
+    // eslint-disable-next-line
+    const a = confirm('are you sure?');
+    if (a) {
+      await removeActivity(id);
+      const data = await getActivities();
+      setActivities(data);
+    }
+  };
 
   if (initialLoading) {
     return (
@@ -62,7 +73,13 @@ export default function AlignItemsList() {
                   </React.Fragment>
                 }
               />
+              {!currentUser ? null : (
+                <IconButton onClick={() => onDelete(id)}>
+                  <CancelPresentationIcon color="error" />
+                </IconButton>
+              )}
             </ListItem>
+
             <Divider variant="inset" component="li" />
           </React.Fragment>
         );
