@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
+import Button from '@mui/material/Button';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Button from '@mui/material/Button';
+import ListItemText from '@mui/material/ListItemText';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import Typography from '@mui/material/Typography';
-import { onValue, ref, remove } from 'firebase/database';
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import IconButton from '@mui/material/IconButton';
+import { Link } from '@reach/router';
 
-import { DateTime } from 'luxon';
-import { db } from 'config/firebase';
+import { dbOnValue, dbRemove } from 'config/firebase';
 import { formatDate } from 'services/date';
 import { useAuth } from 'config/AuthProvider';
 
@@ -19,13 +22,15 @@ export default function AlignItemsList() {
   const { currentUser } = useAuth();
   const [activities, setActivities] = useState([]);
   const [areDoneVisible, setAreDoneVisible] = useState(false);
-  const activitiesDBRef = ref(db, '/activities');
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
-    onValue(activitiesDBRef, (snapshot) => {
+    dbOnValue('/activities', (snapshot) => {
       const data = snapshot.val();
       const activities = Object.keys(data).map((k) => ({ id: k, ...data[k] }));
       setActivities(activities);
+      setInitialLoading(false);
+      toast.success('activities updated');
     });
     // eslint-disable-next-line
   }, []);
@@ -33,8 +38,15 @@ export default function AlignItemsList() {
   const onDelete = (id) => {
     // eslint-disable-next-line
     const a = confirm('are you sure?');
-    if (a) remove(ref(db, 'activities/' + id));
+    if (a) {
+      dbRemove('/activities', id);
+      toast.success('removed');
+    }
   };
+
+  if (initialLoading) {
+    return <CircularProgress />;
+  }
 
   return (
     <List sx={{ bgcolor: 'background.paper', padding: '0' }}>
@@ -87,7 +99,7 @@ export default function AlignItemsList() {
                           >
                             {formatDate(fecha)}
                           </Typography>
-                          {` — ${status}`}
+                          {` — hecho`}
                         </React.Fragment>
                       }
                     />
@@ -139,6 +151,11 @@ export default function AlignItemsList() {
                     </React.Fragment>
                   }
                 />
+                {!currentUser ? null : (
+                  <IconButton component={Link} to={`/edit/${id}`}>
+                    <EditIcon color="info" />
+                  </IconButton>
+                )}
                 {!currentUser ? null : (
                   <IconButton onClick={() => onDelete(id)}>
                     <CancelPresentationIcon color="error" />

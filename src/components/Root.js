@@ -5,6 +5,7 @@ import { AuthProvider } from 'config/AuthProvider';
 import App from 'components/App';
 import Activities from 'components/Activities';
 import Add from 'components/Add';
+import Edit from 'components/Edit';
 import Signup from 'components/Auth/Signup';
 import Login from 'components/Auth/Login';
 import Home from 'components/Home';
@@ -17,6 +18,7 @@ const Root = () => {
         <Router>
           <App path="/">
             <Add path="add" />
+            <Edit path="edit/:id" />
             <Activities path="activities" />
             <Signup path="signup" />
             <Login path="login" />

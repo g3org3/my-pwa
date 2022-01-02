@@ -1,12 +1,12 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from '@reach/router';
 
-import { dbPush } from 'config/firebase';
+import { dbSet, dbOnValue } from 'config/firebase';
 import { useAuth } from 'config/AuthProvider';
 
-const Add = () => {
+const Edit = ({ id }) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const refs = {
@@ -15,6 +15,17 @@ const Add = () => {
     status: useRef(),
     emoji: useRef(),
   };
+
+  useEffect(() => {
+    dbOnValue('/activities/' + id, (snapshot) => {
+      const data = snapshot.val();
+      Object.keys(refs).forEach((key) => {
+        if (!refs[key].current) return;
+        refs[key].current.value = data[key];
+      });
+    });
+    // eslint-disable-next-line
+  }, []);
 
   if (!currentUser) navigate('/login');
 
@@ -25,7 +36,7 @@ const Add = () => {
       const value = refs[key].current.value;
       event[key] = value;
     });
-    dbPush('activities', event);
+    dbSet('activities', id, event);
     Object.keys(refs).forEach((key) => {
       if (!refs[key].current) return;
       refs[key].current.value = '';
@@ -42,16 +53,16 @@ const Add = () => {
         gap: '8px',
       }}
     >
-      <h1>Add new activity</h1>
+      <h1>Edit activity</h1>
       <TextField placeholder="title" inputRef={refs.title} />
       <TextField placeholder="fecha" inputRef={refs.fecha} />
       <TextField placeholder="status" inputRef={refs.status} />
       <TextField placeholder="emoji" inputRef={refs.emoji} />
       <Button onClick={onSubmit} variant="contained">
-        Create
+        Update
       </Button>
     </div>
   );
 };
 
-export default Add;
+export default Edit;

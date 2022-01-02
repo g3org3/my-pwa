@@ -8,9 +8,11 @@ import { toast } from 'react-hot-toast';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, currentUser } = useAuth();
   const navigate = useNavigate();
   const refs = { email: useRef(), password: useRef() };
+
+  if (currentUser) navigate('/activities');
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -53,7 +55,7 @@ const Login = () => {
           name="password"
           inputRef={refs.password}
         />
-        <LoadingButton loading={isLoading} type="submit" variant="outlined">
+        <LoadingButton loading={isLoading} type="submit" variant="contained">
           Login
         </LoadingButton>
       </form>
