@@ -20,7 +20,7 @@ const App = ({ children }) => {
   };
   const selectedTab = location.pathname;
 
-  const isInstalled = true; // window.navigator.standalone === true;
+  const isInstalled = window.navigator.standalone === true;
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
   if (initialLoading)
@@ -61,7 +61,7 @@ const App = ({ children }) => {
         <Navbar title="Activities" {...navbarProps} />
         <Box
           sx={{
-            margin: isInstalled ? '48px 0 56px 0' : '0',
+            margin: isInstalled ? '48px 0 56px 0' : '48px 0 0 0',
             overflow: 'auto',
           }}
         >

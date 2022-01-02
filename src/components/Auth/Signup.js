@@ -1,12 +1,25 @@
 import { useRef, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from '@reach/router';
+// import { RecaptchaVerifier } from 'firebase/auth';
 
 import { useAuth } from 'config/AuthProvider';
-import { useNavigate } from '@reach/router';
-import { toast } from 'react-hot-toast';
+// import { auth } from 'config/firebase';
 
 const Signup = () => {
+  // window.recaptchaVerifier = new RecaptchaVerifier(
+  //   'sign-in-button',
+  //   {
+  //     size: 'invisible',
+  //     callback: (response) => {
+  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //       // onSignInSubmit();
+  //     },
+  //   },
+  //   auth
+  // );
   const [isLoading, setIsLoading] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();

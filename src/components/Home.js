@@ -1,5 +1,7 @@
 import { LoadingButton } from '@mui/lab';
+import { List, ListItem } from '@mui/material';
 import { useNavigate } from '@reach/router';
+import { DateTime } from 'luxon';
 
 import { useAuth } from 'config/AuthProvider';
 
@@ -20,6 +22,33 @@ const Home = () => {
     >
       <h1>Home</h1>
       <pre>{JSON.stringify(currentUser, null, 2)}</pre>
+      {!!currentUser ? null : (
+        <List>
+          <ListItem>uid: {currentUser.uid}</ListItem>
+          <ListItem>email: {currentUser.email}</ListItem>
+          <ListItem>emailVerified: {`${currentUser.emailVerified}`}</ListItem>
+          <ListItem>isAnonymous: {`${currentUser.isAnonymous}`}</ListItem>
+          <ListItem>
+            provider: {currentUser.providerData[0].providerId}
+          </ListItem>
+          <ListItem>provider.uid: {currentUser.providerData[0].uid}</ListItem>
+          <ListItem>
+            provider.displayName: {currentUser.providerData[0].displayName}
+          </ListItem>
+          <ListItem>
+            provider.phoneNumber: {currentUser.providerData[0].phoneNumber}
+          </ListItem>
+          <ListItem>
+            provider.photoURL: {currentUser.providerData[0].photoURL}
+          </ListItem>
+          <ListItem>
+            session expires:{' '}
+            {DateTime.fromMillis(currentUser.stsTokenManager.expirationTime)
+              .toLocal()
+              .toRelative()}
+          </ListItem>
+        </List>
+      )}
       <LoadingButton onClick={handleLogout} variant="contained">
         Logout
       </LoadingButton>
