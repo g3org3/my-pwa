@@ -15,10 +15,12 @@ const Home = () => {
   };
 
   return (
-    <div style={{ padding: '0 24px' }}>
+    <div
+      style={{ padding: '0 24px', display: 'flex', flexDirection: 'column' }}
+    >
       <h1>Home</h1>
       <pre>{JSON.stringify(currentUser, null, 2)}</pre>
-      <LoadingButton onClick={handleLogout} variant="outlined">
+      <LoadingButton onClick={handleLogout} variant="contained">
         Logout
       </LoadingButton>
     </div>

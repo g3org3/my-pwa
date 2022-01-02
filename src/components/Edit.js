@@ -17,13 +17,17 @@ const Edit = ({ id }) => {
   };
 
   useEffect(() => {
-    dbOnValue('/activities/' + id, (snapshot) => {
-      const data = snapshot.val();
-      Object.keys(refs).forEach((key) => {
-        if (!refs[key].current) return;
-        refs[key].current.value = data[key];
-      });
-    });
+    dbOnValue(
+      '/activities/' + id,
+      (snapshot) => {
+        const data = snapshot.val();
+        Object.keys(refs).forEach((key) => {
+          if (!refs[key].current) return;
+          refs[key].current.value = data[key];
+        });
+      },
+      { onlyOnce: true }
+    );
     // eslint-disable-next-line
   }, []);
 
