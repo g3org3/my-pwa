@@ -3,9 +3,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from '@reach/router';
 import { toast } from 'react-hot-toast';
-import { RecaptchaVerifier } from 'firebase/auth';
+// import { RecaptchaVerifier } from 'firebase/auth';
 
-import { auth } from 'config/firebase';
+// import { auth } from 'config/firebase';
 import { useAuth } from 'config/AuthProvider';
 
 const Login = () => {
