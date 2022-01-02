@@ -6,12 +6,10 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from 'components/Navbar';
 import BottomNavigation from 'components/BottomNavigation';
 import Menu from 'components/Menu';
-import { useAuth } from 'config/AuthProvider';
 
 const App = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { initialLoading } = useAuth();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const onMenuClick = () => void setIsMenuOpen(!isMenuOpen);
