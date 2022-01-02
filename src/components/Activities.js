@@ -45,7 +45,11 @@ export default function AlignItemsList() {
   };
 
   if (initialLoading) {
-    return <CircularProgress />;
+    return (
+      <div style={{ paddingTop: '32px', textAlign: 'center' }}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (

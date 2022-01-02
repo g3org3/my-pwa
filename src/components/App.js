@@ -6,8 +6,10 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from 'components/Navbar';
 import BottomNavigation from 'components/BottomNavigation';
 import Menu from 'components/Menu';
+import { useAuth } from 'config/AuthProvider';
 
 const App = ({ children }) => {
+  const { initialLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,6 +23,28 @@ const App = ({ children }) => {
   const isInstalled = true; // window.navigator.standalone === true;
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
+  if (initialLoading)
+    return (
+      <>
+        <div
+          style={{
+            alignItems: 'center',
+            background: '#0277bd',
+            boxSizing: 'border-box',
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            fontSize: '30px',
+            height: '100vh',
+            justifyContent: 'center',
+            width: '100vw',
+          }}
+        >
+          Activities | Loading...
+        </div>
+      </>
+    );
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={true} />
@@ -32,13 +56,12 @@ const App = ({ children }) => {
           height: '100vh',
           width: '100vw',
           boxSizing: 'border-box',
-          paddingBottom: isInstalled ? '24px' : 0,
         }}
       >
         <Navbar title="Activities" {...navbarProps} />
         <Box
           sx={{
-            margin: '48px 0 56px 0',
+            margin: isInstalled ? '48px 0 56px 0' : '0',
             overflow: 'auto',
           }}
         >

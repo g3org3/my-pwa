@@ -15,18 +15,26 @@ export default function AlignItemsList() {
   const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
+    getActivities().then((data) => {
+      setActivities(data);
+      setInitialLoading(false);
+    });
     const id = setInterval(() => {
       getActivities().then((data) => {
         setActivities(data);
         setInitialLoading(false);
       });
-    }, 10000);
+    }, 5000);
 
     return () => clearInterval(id);
   }, []);
 
   if (initialLoading) {
-    return <CircularProgress />;
+    return (
+      <div style={{ paddingTop: '32px', textAlign: 'center' }}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
