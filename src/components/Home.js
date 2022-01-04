@@ -22,7 +22,7 @@ const Home = () => {
     >
       <h1>Home</h1>
       <pre>{JSON.stringify(currentUser, null, 2)}</pre>
-      {!!currentUser ? null : (
+      {!currentUser || true ? null : (
         <List>
           <ListItem>uid: {currentUser.uid}</ListItem>
           <ListItem>email: {currentUser.email}</ListItem>
