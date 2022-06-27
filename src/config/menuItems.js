@@ -9,7 +9,7 @@ export const authenticatedMenuItems = [
   { title: 'Home', Icon: AppsIcon, to: '/' },
   { title: 'Activities', Icon: EventNoteIcon, to: '/activities' },
   { title: 'Add', Icon: AddIcon, to: '/add' },
-  { title: 'Suggestions', Icon: PendingActionsIcon, to: '/suggestions' },
+  // { title: 'Suggestions', Icon: PendingActionsIcon, to: '/suggestions' },
 ];
 
 export const menuItems = [
