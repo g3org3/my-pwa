@@ -4,7 +4,7 @@ import { useNavigate } from '@reach/router';
 import { useAuth } from 'config/AuthProvider';
 
 const Login = () => {
-  const { login, currentUser, loginWithGoogle } = useAuth();
+  const { currentUser, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   if (currentUser) navigate('/activities');
