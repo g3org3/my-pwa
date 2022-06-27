@@ -14,7 +14,10 @@ const Login = () => {
       style={{ display: 'flex', flexDirection: 'column', padding: '0 24px' }}
     >
       <h1>Login</h1>
-      <LoadingButton onClick={() => loginWithGoogle()}>Login with google</LoadingButton>
+      <LoadingButton
+        onClick={() => loginWithGoogle()}>
+        Login with google
+      </LoadingButton>
     </div>
   );
 };
