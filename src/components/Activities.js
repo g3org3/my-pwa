@@ -151,7 +151,7 @@ export default function AlignItemsList() {
                       >
                         {formatDate(fecha)}
                       </Typography>
-                      { lugar && ` — ${lugar}`}
+                      { lugar ? ` — ${lugar}` : null}
                       {` — ${status}`}
                     </React.Fragment>
                   }
