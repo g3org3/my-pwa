@@ -12,9 +12,9 @@ const Add = () => {
   const refs = {
     title: useRef(),
     fecha: useRef(),
-    fechahora: useRef(),
     status: useRef(),
     emoji: useRef(),
+    lugar: useRef(),
   };
 
   if (!currentUser) navigate('/login');
@@ -45,12 +45,12 @@ const Add = () => {
     >
       <h1>Add new activity</h1>
       <TextField placeholder="title" inputRef={refs.title} />
-      <TextField placeholder="fecha" inputRef={refs.fecha} />
       <TextField
         placeholder="fecha-hora"
         type="datetime-local"
-        inputRef={refs.fechahora}
+        inputRef={refs.fecha}
       />
+      <TextField placeholder="lugar" inputRef={refs.lugar} />
       <TextField placeholder="status" inputRef={refs.status} />
       <TextField placeholder="emoji" inputRef={refs.emoji} />
       <Button onClick={onSubmit} variant="contained">
