@@ -46,7 +46,11 @@ const Add = () => {
       <h1>Add new activity</h1>
       <TextField placeholder="title" inputRef={refs.title} />
       <TextField placeholder="fecha" inputRef={refs.fecha} />
-      <TextField placeholder="fecha-hora" type="datetime-local" inputRef={refs.fechahora} />
+      <TextField 
+        placeholder="fecha-hora" 
+        type="datetime-local" 
+        inputRef={refs.fechahora} 
+      />
       <TextField placeholder="status" inputRef={refs.status} />
       <TextField placeholder="emoji" inputRef={refs.emoji} />
       <Button onClick={onSubmit} variant="contained">
