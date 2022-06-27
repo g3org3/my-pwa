@@ -132,7 +132,7 @@ export default function AlignItemsList() {
             DateTime.fromISO(DateTime.now().toISODate())
           );
         })
-        .map(({ id, title, fecha, status, emoji }) => {
+        .map(({ id, title, fecha, status, emoji, lugar }) => {
           return (
             <React.Fragment key={id}>
               <ListItem alignItems="flex-start">
@@ -151,6 +151,7 @@ export default function AlignItemsList() {
                       >
                         {formatDate(fecha)}
                       </Typography>
+                      { lugar && ` — ${lugar}`}
                       {` — ${status}`}
                     </React.Fragment>
                   }
