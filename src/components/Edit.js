@@ -59,7 +59,7 @@ const Edit = ({ id }) => {
     >
       <h1>Edit activity</h1>
       <TextField placeholder="title" inputRef={refs.title} />
-      <TextField placeholder="fecha" inputRef={refs.fecha} />
+      <TextField type="datetime-local" inputRef={refs.fecha} />
       <TextField placeholder="status" inputRef={refs.status} />
       <TextField placeholder="emoji" inputRef={refs.emoji} />
       <Button onClick={onSubmit} variant="contained">
