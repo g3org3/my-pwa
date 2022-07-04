@@ -10,11 +10,7 @@ const MyBottomNavigation = ({ value }) => {
   const items = currentUser ? authenticatedMenuItems : menuItems;
 
   return (
-    <BottomNavigation
-      showLabels
-      value={value}
-      sx={{ position: 'fixed', bottom: '24px', width: '100vw' }}
-    >
+    <BottomNavigation showLabels value={value}>
       {items.map(({ title, Icon, to }) => (
         <BottomNavigationAction
           component={Link}

@@ -17,6 +17,7 @@ import { Link } from '@reach/router';
 import { dbOnValue, dbRemove } from 'config/firebase';
 import { formatDate } from 'services/date';
 import { useAuth } from 'config/AuthProvider';
+import Activity from 'components/Activity';
 
 export default function AlignItemsList() {
   const { currentUser } = useAuth();
@@ -52,125 +53,105 @@ export default function AlignItemsList() {
     );
   }
 
-  return (
-    <List sx={{ bgcolor: 'background.paper', padding: '0' }}>
-      {
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: '12px',
-          }}
-        >
-          <Button
-            onClick={() => setAreDoneVisible(!areDoneVisible)}
-            color="info"
-            variant="outlined"
-            sx={{ margin: '0 16px' }}
-          >
-            {areDoneVisible ? 'Esconder ' : 'Ver '} anteriores
-          </Button>
-        </div>
-      }
-      {!areDoneVisible
-        ? null
-        : activities
-            .sort((a, b) => {
-              return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);
-            })
-            .filter((a) => {
-              return (
-                DateTime.fromISO(a.fecha) <
-                DateTime.fromISO(DateTime.now().toISODate())
-              );
-            })
-            .map(({ id, title, fecha, status, emoji }) => {
-              return (
-                <React.Fragment key={id}>
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <span style={{ fontSize: '35px' }}>{emoji || '🗓'}</span>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={title}
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            sx={{ display: 'inline' }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                          >
-                            {formatDate(fecha)}
-                          </Typography>
-                          {` — hecho`}
-                        </React.Fragment>
-                      }
-                    />
-                    {!currentUser ? null : (
-                      <IconButton onClick={() => onDelete(id)}>
-                        <CancelPresentationIcon color="error" />
-                      </IconButton>
-                    )}
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </React.Fragment>
-              );
-            })}
-      {areDoneVisible ? (
-        <div style={{ background: '#eee', padding: '4px 0 4px 16px' }}>
-          Anteriores
-        </div>
-      ) : null}
-      {activities
+  const filteredSortedActivites = !areDoneVisible
+    ? []
+    : activities
         .sort((a, b) => {
           return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);
         })
         .filter((a) => {
           return (
-            DateTime.fromISO(a.fecha) >=
+            DateTime.fromISO(a.fecha) <
             DateTime.fromISO(DateTime.now().toISODate())
           );
-        })
-        .map(({ id, title, fecha, status, emoji, lugar }) => {
-          return (
-            <React.Fragment key={id}>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  <span style={{ fontSize: '35px' }}>{emoji || '🗓'}</span>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={title}
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        {formatDate(fecha)}
-                      </Typography>
-                      {lugar ? ` — ${lugar}` : null}
-                      {` — ${status}`}
-                    </React.Fragment>
-                  }
-                />
-                {!currentUser ? null : (
-                  <IconButton component={Link} to={`/edit/${id}`}>
-                    <EditIcon color="info" />
-                  </IconButton>
-                )}
-                {!currentUser ? null : (
-                  <IconButton onClick={() => onDelete(id)}>
-                    <CancelPresentationIcon color="error" />
-                  </IconButton>
-                )}
-              </ListItem>
-              <Divider variant="inset" component="li" />
-            </React.Fragment>
-          );
-        })}
-    </List>
+        });
+
+  return (
+    <>
+      <List sx={{ bgcolor: 'background.paper', padding: '0' }}>
+        {
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              marginTop: '12px',
+            }}
+          >
+            <Button
+              onClick={() => setAreDoneVisible(!areDoneVisible)}
+              color="info"
+              variant="outlined"
+              sx={{ margin: '0 16px' }}
+            >
+              {areDoneVisible ? 'Esconder ' : 'Ver '} anteriores
+            </Button>
+          </div>
+        }
+        {filteredSortedActivites.map(({ id, title, fecha, status, emoji }) => (
+          <Activity
+            id={id}
+            title={title}
+            fecha={fecha}
+            status={status}
+            emoji={emoji}
+            onDelete={onDelete}
+          />
+        ))}
+        {areDoneVisible ? (
+          <div style={{ background: '#eee', padding: '4px 0 4px 16px' }}>
+            Anteriores
+          </div>
+        ) : null}
+        {activities
+          .sort((a, b) => {
+            return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);
+          })
+          .filter((a) => {
+            return (
+              DateTime.fromISO(a.fecha) >=
+              DateTime.fromISO(DateTime.now().toISODate())
+            );
+          })
+          .map(({ id, title, fecha, status, emoji, lugar }) => {
+            return (
+              <React.Fragment key={id}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <span style={{ fontSize: '35px' }}>{emoji || '🗓'}</span>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={title}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {formatDate(fecha)}
+                        </Typography>
+                        {lugar ? ` — ${lugar}` : null}
+                        {` — ${status}`}
+                      </React.Fragment>
+                    }
+                  />
+                  {!currentUser ? null : (
+                    <IconButton component={Link} to={`/edit/${id}`}>
+                      <EditIcon color="info" />
+                    </IconButton>
+                  )}
+                  {!currentUser ? null : (
+                    <IconButton onClick={() => onDelete(id)}>
+                      <CancelPresentationIcon color="error" />
+                    </IconButton>
+                  )}
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </React.Fragment>
+            );
+          })}
+      </List>
+    </>
   );
 }

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from '@reach/router';
 import Box from '@mui/material/Box';
 import { Toaster } from 'react-hot-toast';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
 import Navbar from 'components/Navbar';
 import BottomNavigation from 'components/BottomNavigation';
@@ -20,7 +22,7 @@ const App = ({ children }) => {
   };
   const selectedTab = location.pathname;
 
-  const isInstalled = window.navigator.standalone === true;
+  const isInstalled = window.navigator.standalone === true || true;
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
   if (initialLoading)
@@ -55,14 +57,14 @@ const App = ({ children }) => {
           flexDirection: 'column',
           height: '100vh',
           width: '100vw',
-          boxSizing: 'border-box',
         }}
       >
         <Navbar title="Activities" {...navbarProps} />
         <Box
           sx={{
-            margin: isInstalled ? '48px 0 56px 0' : '48px 0 0 0',
             overflow: 'auto',
+            paddingBottom: '30px',
+            flex: '1',
           }}
         >
           {children}
@@ -73,6 +75,16 @@ const App = ({ children }) => {
             onClick={onBottomNavigationClick}
           />
         ) : null}
+        {window.location.pathname === '/add' ? null : (
+          <Fab
+            color="primary"
+            aria-label="add"
+            onClick={() => navigate('/add')}
+            sx={{ position: 'fixed', bottom: '60px', right: '20px' }}
+          >
+            <AddIcon />
+          </Fab>
+        )}
       </div>
     </>
   );
