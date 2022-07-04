@@ -1,26 +1,14 @@
 import { DateTime } from 'luxon';
 import Button from '@mui/material/Button';
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import CircularProgress from '@mui/material/CircularProgress';
-import Divider from '@mui/material/Divider';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import Typography from '@mui/material/Typography';
-import { Link } from '@reach/router';
 
 import { dbOnValue, dbRemove } from 'config/firebase';
-import { formatDate } from 'services/date';
-import { useAuth } from 'config/AuthProvider';
 import Activity from 'components/Activity';
 
 export default function Activities() {
-  const { currentUser } = useAuth();
   const [activities, setActivities] = useState([]);
   const [areDoneVisible, setAreDoneVisible] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
@@ -88,7 +76,7 @@ export default function Activities() {
           </div>
         }
         {filteredSortedActivites.map((props) => (
-          <Activity key={props.id} done {...props} />
+          <Activity onDelete={onDelete} key={props.id} done {...props} />
         ))}
         {areDoneVisible ? (
           <div style={{ background: '#eee', padding: '4px 0 4px 16px' }}>
@@ -106,7 +94,7 @@ export default function Activities() {
             );
           })
           .map((props) => (
-            <Activity key={props.id} {...props} />
+            <Activity onDelete={onDelete} key={props.id} {...props} />
           ))}
       </List>
     </>
