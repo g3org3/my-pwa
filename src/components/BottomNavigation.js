@@ -10,7 +10,7 @@ const MyBottomNavigation = ({ value }) => {
   const items = currentUser ? authenticatedMenuItems : menuItems;
 
   return (
-    <BottomNavigation showLabels value={value} sx={{ marginBottom: '56px' }}>
+    <BottomNavigation showLabels value={value} sx={{ marginBottom: '24px' }}>
       {items.map(({ title, Icon, to }) => (
         <BottomNavigationAction
           component={Link}
