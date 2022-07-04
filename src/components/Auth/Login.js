@@ -24,7 +24,8 @@ const Login = () => {
       <Paper
         elevation={3}
         sx={{
-          width: '500px',
+          width: '90%',
+          maxWidth: '500px',
           padding: '24px',
           display: 'flex',
           flexDirection: 'column',
@@ -34,6 +35,7 @@ const Login = () => {
         <h1 style={{ padding: 0, margin: 0, fontWeight: 'normal' }}>
           Activities App
         </h1>
+        Haz login para poder agregar actividades
         <LoadingButton variant="contained" onClick={() => loginWithGoogle()}>
           Login with google
         </LoadingButton>

@@ -11,7 +11,7 @@ import Menu from 'components/Menu';
 import { useAuth } from 'config/AuthProvider';
 
 const App = ({ children }) => {
-  const { initialLoading } = useAuth();
+  const { initialLoading, currentUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -24,6 +24,11 @@ const App = ({ children }) => {
 
   const isInstalled = window.navigator.standalone === true || true;
   const navbarProps = isInstalled ? {} : { onMenuClick };
+
+  const onClickAdd = () => {
+    if (currentUser) navigate('/add');
+    else navigate('/login');
+  };
 
   if (initialLoading)
     return (
@@ -75,11 +80,11 @@ const App = ({ children }) => {
             onClick={onBottomNavigationClick}
           />
         ) : null}
-        {window.location.pathname === '/add' ? null : (
+        {window.location.pathname !== '/activities' ? null : (
           <Fab
             color="primary"
             aria-label="add"
-            onClick={() => navigate('/add')}
+            onClick={onClickAdd}
             sx={{ position: 'fixed', bottom: '60px', right: '20px' }}
           >
             <AddIcon />

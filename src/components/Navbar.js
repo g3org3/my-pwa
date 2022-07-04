@@ -9,7 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from 'config/AuthProvider';
 
 const Navbar = ({ title, onMenuClick }) => {
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -38,15 +38,17 @@ const Navbar = ({ title, onMenuClick }) => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {title}
         </Typography>
-        <IconButton
-          onClick={handleLogout}
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="logout"
-        >
-          <LogoutIcon />
-        </IconButton>
+        {currentUser && (
+          <IconButton
+            onClick={handleLogout}
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="logout"
+          >
+            <LogoutIcon />
+          </IconButton>
+        )}
       </Toolbar>
     </AppBar>
   );
