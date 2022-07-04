@@ -26,9 +26,15 @@ const App = ({ children }) => {
   const navbarProps = isInstalled ? {} : { onMenuClick };
 
   const onClickAdd = () => {
-    if (currentUser) navigate('/add');
-    else navigate('/login');
+    if (currentUser) {
+      navigate(
+        window.location.pathname === '/activities' ? '/add' : '/add-todo'
+      );
+    } else navigate('/login');
   };
+
+  const color =
+    window.location.pathname === '/activities' ? 'primary' : 'purple';
 
   if (initialLoading)
     return (
@@ -80,9 +86,10 @@ const App = ({ children }) => {
             onClick={onBottomNavigationClick}
           />
         ) : null}
-        {window.location.pathname !== '/activities' ? null : (
+        {window.location.pathname !== '/activities' &&
+        window.location.pathname !== '/todos' ? null : (
           <Fab
-            color="primary"
+            color={color}
             aria-label="add"
             onClick={onClickAdd}
             sx={{ position: 'fixed', bottom: '60px', right: '20px' }}

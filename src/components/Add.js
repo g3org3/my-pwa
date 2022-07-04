@@ -43,7 +43,7 @@ const Add = () => {
         gap: '8px',
       }}
     >
-      <h1>Add new activity</h1>
+      <h1 style={{ fontWeight: 'normal' }}>Add new activity</h1>
       <TextField placeholder="title" inputRef={refs.title} />
       <TextField
         placeholder="fecha-hora"

@@ -19,7 +19,7 @@ import { formatDate } from 'services/date';
 import { useAuth } from 'config/AuthProvider';
 import Activity from 'components/Activity';
 
-export default function AlignItemsList() {
+export default function Activities() {
   const { currentUser } = useAuth();
   const [activities, setActivities] = useState([]);
   const [areDoneVisible, setAreDoneVisible] = useState(false);
@@ -87,15 +87,8 @@ export default function AlignItemsList() {
             </Button>
           </div>
         }
-        {filteredSortedActivites.map(({ id, title, fecha, status, emoji }) => (
-          <Activity
-            id={id}
-            title={title}
-            fecha={fecha}
-            status={status}
-            emoji={emoji}
-            onDelete={onDelete}
-          />
+        {filteredSortedActivites.map((props) => (
+          <Activity key={props.id} done {...props} />
         ))}
         {areDoneVisible ? (
           <div style={{ background: '#eee', padding: '4px 0 4px 16px' }}>
@@ -112,45 +105,9 @@ export default function AlignItemsList() {
               DateTime.fromISO(DateTime.now().toISODate())
             );
           })
-          .map(({ id, title, fecha, status, emoji, lugar }) => {
-            return (
-              <React.Fragment key={id}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <span style={{ fontSize: '35px' }}>{emoji || '🗓'}</span>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={title}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          sx={{ display: 'inline' }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          {formatDate(fecha)}
-                        </Typography>
-                        {lugar ? ` — ${lugar}` : null}
-                        {` — ${status}`}
-                      </React.Fragment>
-                    }
-                  />
-                  {!currentUser ? null : (
-                    <IconButton component={Link} to={`/edit/${id}`}>
-                      <EditIcon color="info" />
-                    </IconButton>
-                  )}
-                  {!currentUser ? null : (
-                    <IconButton onClick={() => onDelete(id)}>
-                      <CancelPresentationIcon color="error" />
-                    </IconButton>
-                  )}
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </React.Fragment>
-            );
-          })}
+          .map((props) => (
+            <Activity key={props.id} {...props} />
+          ))}
       </List>
     </>
   );

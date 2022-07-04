@@ -6,7 +6,7 @@ import { useNavigate } from '@reach/router';
 import { dbSet, dbOnValue } from 'config/firebase';
 import { useAuth } from 'config/AuthProvider';
 
-const Edit = ({ id }) => {
+const EditTodo = ({ id }) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const refs = {
@@ -18,7 +18,7 @@ const Edit = ({ id }) => {
 
   useEffect(() => {
     dbOnValue(
-      '/activities/' + id,
+      '/todos/' + id,
       (snapshot) => {
         const data = snapshot.val();
         Object.keys(refs).forEach((key) => {
@@ -40,12 +40,12 @@ const Edit = ({ id }) => {
       const value = refs[key].current.value;
       event[key] = value;
     });
-    dbSet('activities', id, event);
+    dbSet('todos', id, event);
     Object.keys(refs).forEach((key) => {
       if (!refs[key].current) return;
       refs[key].current.value = '';
     });
-    navigate('/activities');
+    navigate('/todos');
   };
 
   return (
@@ -57,7 +57,7 @@ const Edit = ({ id }) => {
         gap: '8px',
       }}
     >
-      <h1 style={{ fontWeight: 'normal' }}>Edit activity</h1>
+      <h1 style={{ fontWeight: 'normal' }}>Edit todo</h1>
       <TextField placeholder="title" inputRef={refs.title} />
       <TextField type="datetime-local" inputRef={refs.fecha} />
       <TextField placeholder="status" inputRef={refs.status} />
@@ -69,4 +69,4 @@ const Edit = ({ id }) => {
   );
 };
 
-export default Edit;
+export default EditTodo;

@@ -1,12 +1,12 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from '@reach/router';
 
-import { dbSet, dbOnValue } from 'config/firebase';
+import { dbPush } from 'config/firebase';
 import { useAuth } from 'config/AuthProvider';
 
-const Edit = ({ id }) => {
+const AddTodo = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const refs = {
@@ -14,22 +14,8 @@ const Edit = ({ id }) => {
     fecha: useRef(),
     status: useRef(),
     emoji: useRef(),
+    lugar: useRef(),
   };
-
-  useEffect(() => {
-    dbOnValue(
-      '/activities/' + id,
-      (snapshot) => {
-        const data = snapshot.val();
-        Object.keys(refs).forEach((key) => {
-          if (!refs[key].current) return;
-          refs[key].current.value = data[key];
-        });
-      },
-      { onlyOnce: true }
-    );
-    // eslint-disable-next-line
-  }, []);
 
   if (!currentUser) navigate('/login');
 
@@ -40,12 +26,12 @@ const Edit = ({ id }) => {
       const value = refs[key].current.value;
       event[key] = value;
     });
-    dbSet('activities', id, event);
+    dbPush('todos', event);
     Object.keys(refs).forEach((key) => {
       if (!refs[key].current) return;
       refs[key].current.value = '';
     });
-    navigate('/activities');
+    navigate('/todos');
   };
 
   return (
@@ -57,16 +43,21 @@ const Edit = ({ id }) => {
         gap: '8px',
       }}
     >
-      <h1 style={{ fontWeight: 'normal' }}>Edit activity</h1>
+      <h1 style={{ fontWeight: 'normal' }}>Add new Todo</h1>
       <TextField placeholder="title" inputRef={refs.title} />
-      <TextField type="datetime-local" inputRef={refs.fecha} />
+      <TextField
+        placeholder="fecha-hora"
+        type="datetime-local"
+        inputRef={refs.fecha}
+      />
+      <TextField placeholder="lugar" inputRef={refs.lugar} />
       <TextField placeholder="status" inputRef={refs.status} />
       <TextField placeholder="emoji" inputRef={refs.emoji} />
       <Button onClick={onSubmit} variant="contained">
-        Update
+        Create
       </Button>
     </div>
   );
 };
 
-export default Edit;
+export default AddTodo;

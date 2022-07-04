@@ -6,11 +6,23 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import { Link } from '@reach/router';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { formatDate } from 'services/date';
 import { useAuth } from 'config/AuthProvider';
 
-const Activity = ({ emoji, fecha, id, title, onDelete }) => {
+const Activity = ({
+  emoji,
+  fecha,
+  id,
+  title,
+  lugar,
+  status,
+  onDelete,
+  done,
+  todo,
+}) => {
   const { currentUser } = useAuth();
 
   return (
@@ -22,7 +34,7 @@ const Activity = ({ emoji, fecha, id, title, onDelete }) => {
         <ListItemText
           primary={title}
           secondary={
-            <React.Fragment>
+            <div>
               <Typography
                 sx={{ display: 'inline' }}
                 component="span"
@@ -31,10 +43,19 @@ const Activity = ({ emoji, fecha, id, title, onDelete }) => {
               >
                 {formatDate(fecha)}
               </Typography>
-              {` — hecho`}
-            </React.Fragment>
+              {lugar ? ` — ${lugar}` : ''}
+              {done ? ` — hecho` : ` — ${status}`}
+            </div>
           }
         />
+        {!currentUser || done ? null : (
+          <IconButton
+            component={Link}
+            to={todo ? `/edit-todo/${id}` : `/edit/${id}`}
+          >
+            <EditIcon color="info" />
+          </IconButton>
+        )}
         {!currentUser ? null : (
           <IconButton onClick={() => onDelete(id)}>
             <CancelPresentationIcon color="error" />
