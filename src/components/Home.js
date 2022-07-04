@@ -1,27 +1,19 @@
-import { LoadingButton } from '@mui/lab';
 import { useNavigate } from '@reach/router';
-
-import { useAuth } from 'config/AuthProvider';
+import { useEffect } from 'react';
 
 const Home = () => {
-  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  if (!currentUser) navigate('/login');
-
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-  };
+  useEffect(() => {
+    navigate('/activities');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
       style={{ padding: '0 24px', display: 'flex', flexDirection: 'column' }}
     >
       <h1>Home</h1>
-      <LoadingButton onClick={handleLogout} variant="contained">
-        Logout
-      </LoadingButton>
     </div>
   );
 };
