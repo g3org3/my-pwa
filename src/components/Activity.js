@@ -34,18 +34,18 @@ const Activity = ({
         <ListItemText
           primary={title}
           secondary={
-            <div>
+            <>
               <Typography
-                sx={{ display: 'inline' }}
+                sx={{ display: 'inline', textTransform: 'capitalize' }}
                 component="span"
                 variant="body2"
                 color="text.primary"
               >
-                {formatDate(fecha)}
+                {formatDate(fecha, done)}
               </Typography>
               {lugar ? ` — ${lugar}` : ''}
               {done ? ` — hecho` : ` — ${status}`}
-            </div>
+            </>
           }
         />
         {!currentUser || done ? null : (

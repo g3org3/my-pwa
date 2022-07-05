@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from '@reach/router';
 import Box from '@mui/material/Box';
-import { Toaster } from 'react-hot-toast';
+import toaster, { Toaster } from 'react-hot-toast';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -9,14 +9,32 @@ import Navbar from 'components/Navbar';
 import BottomNavigation from 'components/BottomNavigation';
 import Menu from 'components/Menu';
 import { useAuth } from 'config/AuthProvider';
+import { dbOnValue } from 'config/firebase';
+
+const AppContext = createContext({});
+export const useApp = () => useContext(AppContext);
 
 const App = ({ children }) => {
   const { initialLoading, currentUser } = useAuth();
+  const [ctx, setCtx] = useState({ initialLoading: true });
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    return dbOnValue('/activities', (snapshot) => {
+      console.log('update');
+      const data = snapshot.val();
+      setCtx({
+        activities: data,
+        activityKeys: Object.keys(data),
+        initialLoading: false,
+      });
+      toaster.success('activities updated');
+    });
+  }, []);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const onMenuClick = () => void setIsMenuOpen(!isMenuOpen);
+  const onMenuClick = () => setIsMenuOpen(!isMenuOpen);
   const onBottomNavigationClick = (newValue) => {
     navigate(`/${newValue}`);
   };
@@ -59,7 +77,7 @@ const App = ({ children }) => {
     );
 
   return (
-    <>
+    <AppContext.Provider value={ctx}>
       <Toaster position="top-center" reverseOrder={true} />
       <Menu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
       <div
@@ -98,7 +116,7 @@ const App = ({ children }) => {
           </Fab>
         )}
       </div>
-    </>
+    </AppContext.Provider>
   );
 };
 
