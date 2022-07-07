@@ -12,18 +12,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import { formatDate } from 'services/date';
 import { useAuth } from 'config/AuthProvider';
 
-const Activity = ({
-  emoji,
-  fecha,
-  id,
-  title,
-  lugar,
-  status,
-  onDelete,
-  done,
-  todo,
-}) => {
+const Activity = (props) => {
+  const { emoji, fecha, id, title, lugar, status, onDelete, done, todo } =
+    props;
   const { currentUser } = useAuth();
+  const to = todo ? `/edit-todo/${id}` : `/edit/${id}`;
 
   return (
     <>
@@ -49,10 +42,7 @@ const Activity = ({
           }
         />
         {!currentUser || done ? null : (
-          <IconButton
-            component={Link}
-            to={todo ? `/edit-todo/${id}` : `/edit/${id}`}
-          >
+          <IconButton component={Link} to={to}>
             <EditIcon color="info" />
           </IconButton>
         )}

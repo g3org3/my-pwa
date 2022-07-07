@@ -22,7 +22,6 @@ const App = ({ children }) => {
 
   useEffect(() => {
     return dbOnValue('/activities', (snapshot) => {
-      console.log('update');
       const data = snapshot.val();
       setCtx({
         activities: data,

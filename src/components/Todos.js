@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { dbOnValue } from 'config/firebase';
 import List from '@mui/material/List';
+import toast from 'react-hot-toast';
+
 import Activity from './Activity';
+import { dbOnValue, dbRemove } from 'config/firebase';
 
 const Todos = () => {
   const [activities, setActivities] = useState([]);
@@ -16,10 +17,17 @@ const Todos = () => {
     // eslint-disable-next-line
     }, []);
 
+  const onDelete = (id) => {
+    // eslint-disable-next-line
+      if (confirm('are you sure?')) {
+      dbRemove('/todos', id);
+    }
+  };
+
   return (
     <List sx={{ bgcolor: 'background.paper', padding: '0' }}>
       {activities.map((todo) => (
-        <Activity todo {...todo}></Activity>
+        <Activity key={todo.id} onDelete={onDelete} todo {...todo}></Activity>
       ))}
     </List>
   );

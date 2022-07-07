@@ -9,21 +9,19 @@ import Activity from 'components/Activity';
 import { useApp } from 'components/App';
 
 const sortOldToRecentDate = (a, b) => {
-  return DateTime.fromISO(a.fecha) - DateTime.fromISO(b.fecha);
+  return DateTime.fromISO(a.fecha) > DateTime.fromISO(b.fecha);
 };
 
 export default function Activities() {
   const ctx = useApp();
-  const activities = React.useMemo(() => {
-    if (!ctx.activities) return [];
-    return Object.keys(ctx.activities)
-      .map((key) => ({
-        ...ctx.activities[key],
-        id: key,
-      }))
-      .sort(sortOldToRecentDate);
-    // eslint-disable-next-line
-  }, [ctx.activityKeys]);
+  const activities = Object.keys(ctx.activities || [])
+    .map((key) => ({
+      ...ctx.activities[key],
+      id: key,
+    }))
+    .sort(sortOldToRecentDate);
+
+  // eslint-disable-next-line
   const [areDoneVisible, setAreDoneVisible] = useState(false);
 
   const onDelete = (id) => {
